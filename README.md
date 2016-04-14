@@ -6,7 +6,7 @@ ExtJS Plugin for Grid Column to support sortable multiple headers
 
 * Allow to combine multiple fields in one column with ability to sort on each field.
 * Provide default renderer.
-* Presentation can easily customised with CSS
+* Easily customizable appearance
 
 **Source at GitHub**
 
