@@ -16,14 +16,14 @@ ExtJS Plugin for Grid Column to support sortable multiple headers
 
 **Demos**
 
-[Sencha's Fiddle: https://fiddle.sencha.com/#fiddle/18jr](https://fiddle.sencha.com/#fiddle/18jr)
-[Sencha's Fiddle with custom styles: https://fiddle.sencha.com/#fiddle/18ln](https://fiddle.sencha.com/#fiddle/18ln)
+* [Sencha's Fiddle: https://fiddle.sencha.com/#fiddle/18jr](https://fiddle.sencha.com/#fiddle/18jr)
+* [Sencha's Fiddle with custom styles: https://fiddle.sencha.com/#fiddle/18ln](https://fiddle.sencha.com/#fiddle/18ln)
 
 
 **Config object**
 
-* **headers** - array of config objects: header text and model data index to sort on
-* **emptyMarker** -string, default output for empty value
+* **headers** [Array] array of config objects: header text and model data index to sort on
+* **emptyMarker**[String] default output for empty value
 
 **Usage Example**
 
