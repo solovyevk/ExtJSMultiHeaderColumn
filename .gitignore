@@ -1,0 +1,11 @@
+/.sencha
+/build
+/classic
+/ext
+/overrides
+/packages
+/sass
+.idea/
+.iml
+.ipr
+.iws

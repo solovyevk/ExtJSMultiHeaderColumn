@@ -274,7 +274,7 @@
       ]
     },
     {
-      "path": "resources/application.css",
+      "path": "resources/custom.css",
       "bundle": false
     }
   ],

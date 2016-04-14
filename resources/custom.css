@@ -1,0 +1,15 @@
+.project-grid .x-column-header {
+  height: 70px
+}
+
+.x-column-header-text-multipleHeader-over, .x-column-header-over .x-column-header-text-inner {
+  color: #15428B;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.x-column-header-over .x-column-header-text-multipleHeader .x-column-header-text-inner {
+  color: black;
+  text-decoration: none;
+}
+
