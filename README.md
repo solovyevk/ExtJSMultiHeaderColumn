@@ -1,5 +1,5 @@
 
-ExtJS Plugin for Grid Column to support sortable multiple headers
+ExtJS Plugin for Grid Column to support multiple sortable headers
 -----------------------------------------------------------------
 
 **Features:**
@@ -42,6 +42,14 @@ ExtJS Plugin for Grid Column to support sortable multiple headers
       }
 
 Currently tested with ExtJS 6, 5.1.2
+
+This component also migrated to ExtJS4, just download and run examples.html out of box
+
+**Source at GitHub**
+
+[https://github.com/solovyevk/ExtJSMultiHeaderColumn/tree/ExtJS4](https://github.com/solovyevk/ExtJSMultiHeaderColumn/tree/ExtJS4)
+
+
 
 
 
