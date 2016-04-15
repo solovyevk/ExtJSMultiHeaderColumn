@@ -1,5 +1,5 @@
 Ext.define('Ext.ux.grid.column.MultiHeader', {
-  extend: 'Ext.plugin.Abstract',
+  extend: 'Ext.AbstractPlugin',
   alias: 'plugin.multiheadercolumn',
 
   hoverMultipleHeaderCls: Ext.baseCSSPrefix + 'column-header-text-multipleHeader-over',
@@ -20,26 +20,8 @@ Ext.define('Ext.ux.grid.column.MultiHeader', {
         emptyMarker = me.emptyMarker || '-';
     me.column = column;
     column.on('render', me.onColumnRender, me, {single: true});
-    column.onTitleElClick = Ext.Function.createInterceptor(column.onTitleElClick, function (e, t, sortOnClick) {
-      var target = me.getMultiHeaderDomByEvent(e);
-      if (sortOnClick !== false && target) {
-        var allHeaders = this.textEl.query('div.x-column-header-text-multipleHeader'),
-            i;
-        for (i = 0; i < allHeaders.length; i++) {
-          var obj = allHeaders[i],
-              objSpanElement = Ext.fly(obj.lastChild);
-          objSpanElement.removeCls('x-column-header-text-inner');
-          if (obj === target) {
-            this.dataIndex = objSpanElement.getAttribute('data-index');
-            objSpanElement.addCls('x-column-header-text-inner');
-          }
-          objSpanElement = null;
-        }
-      }
-      return true;
-    }, column);
     //setup renderer
-    if(!column.renderer || column.usingDefaultRenderer){
+    if(!column.renderer || column.defaultRenderer){
       column.renderer =  function(value, metadata, record){
         var i, currentValue, ret='';
         for (i = 0; i < me.headers.length; i++) {
@@ -62,10 +44,28 @@ Ext.define('Ext.ux.grid.column.MultiHeader', {
       destroyable: true,
       mouseover: me.onMultiHeaderMouseEnter,
       mouseout: me.onMultiHeaderMouseLeave,
+      click: function (e, t, sortOnClick) {
+            var target = this.getMultiHeaderDomByEvent(e);
+            if (sortOnClick !== false && target) {
+              var allHeaders = this.column.textEl.query('div.x-column-header-text-multipleHeader'),
+                  i;
+              for (i = 0; i < allHeaders.length; i++) {
+                var obj = allHeaders[i],
+                    objSpanElement = Ext.fly(obj.lastChild);
+                objSpanElement.removeCls('x-column-header-text-inner');
+                if (obj === target) {
+                  this.column.dataIndex = objSpanElement.getAttribute('data-index');
+                  objSpanElement.addCls('x-column-header-text-inner');
+                }
+                objSpanElement = null;
+              }
+            }
+            return true;
+          },
       scope: me
     };
     me.listeners = column.mon(column.textEl, listeners);
-    column.textEl.empty();
+    column.textEl.update('');
     me.multipleHeadersCmp = Ext.create('Ext.Component', {
       renderTo: column.textEl,
       renderTpl: [

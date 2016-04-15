@@ -1,5 +1,5 @@
 
-ExtJS Plugin for Grid Column to support sortable multiple headers
+ExtJS Plugin for Grid Column to support multiple sortable headers
 -----------------------------------------------------------------
 
 **Features:**

@@ -1,8 +1,8 @@
-.project-grid .x-column-header {
-  height: 50px
-}
+/*.project-grid .x-column-header-inner {
+  height: 60px
+}*/
 
-.x-column-header-text-multipleHeader-over, .x-column-header-over .x-column-header-text-inner {
+.x-column-header-text-multipleHeader-over, .x-column-header-over .x-column-header-text{
   color: #15428B;
   text-decoration: underline;
   cursor: pointer;
