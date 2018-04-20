@@ -39,17 +39,27 @@ Ext.define('Ext.ux.grid.column.MultiHeader', {
       return true;
     }, column);
     //setup renderer
-    if(!column.renderer || column.usingDefaultRenderer){
-      column.renderer =  function(value, metadata, record){
-        var i, currentValue, ret='';
-        for (i = 0; i < me.headers.length; i++) {
-          currentValue = record.get(me.headers[i].dataIndex);
-          if(currentValue === undefined || currentValue === null || currentValue ===''){
+    if (!column.renderer || column.usingDefaultRenderer) {
+      column.renderer = function (value, metadata, record, rowIndex, colIndex, store, view) {
+        var i, currentValue, ret = '', header, count = me.headers.length;
+        if (count > 1) {
+          metadata.tdCls = 'multi-value-grid-cell'
+        }
+        for (i = 0; i < count; i++) {
+          header = me.headers[i];
+          currentValue = record.get(header.dataIndex);
+          if (currentValue === undefined || currentValue === null || currentValue === '') {
             currentValue = emptyMarker;
-          }else if(column.defaultRenderer && column.defaultRenderer.call){
+          } else if (header.renderer) {
+            currentValue = header.renderer.call(column, currentValue, metadata, record, rowIndex, colIndex, store, view);
+          } else if (column.defaultRenderer && column.defaultRenderer.call) {
             currentValue = column.defaultRenderer.call(column, currentValue);
           }
-          ret = ret + currentValue + '<br/>'
+          // ret = ret + '<div class="multiline-grid-cell' + (i === 0 ? '-first' : i === count - 1 ? '-last' : '') + '">' + currentValue + '</div>'
+          if (i > 0) {
+            ret = ret + '<br/>';
+          }
+          ret = ret + currentValue;
         }
         return ret;
       }
