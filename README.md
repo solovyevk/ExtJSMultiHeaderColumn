@@ -41,7 +41,7 @@ ExtJS Plugin for Grid Column to support multiple sortable headers
         }
       }
 
-Currently tested with ExtJS 6, 5.1.2
+Currently tested with ExtJS 7.x, 6.x, 5.1.2
 
 This component also migrated to ExtJS4, just download and run examples.html out of box
 

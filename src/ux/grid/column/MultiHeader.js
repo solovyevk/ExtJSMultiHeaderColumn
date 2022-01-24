@@ -5,19 +5,19 @@ Ext.define('Ext.ux.grid.column.MultiHeader', {
   hoverMultipleHeaderCls: Ext.baseCSSPrefix + 'column-header-text-multipleHeader-over',
 
   /**
-     * @cfg {Array} headers
-     * Array of config objects: header text and model data index to sort on
-     */
+   * @cfg {Array} headers
+   * Array of config objects: header text and model data index to sort on
+   */
 
   /**
-     * @cfg {String} emptyMarker
-     * Default output for empty value
-     */
+   * @cfg {String} emptyMarker
+   * Default output for empty value
+   */
 
 
   init: function (column) {
     var me = this,
-        emptyMarker = me.emptyMarker || '-';
+        emptyMarker = me.emptyMarker || '&nbsp;';
     me.column = column;
     column.on('render', me.onColumnRender, me, {single: true});
     column.onTitleElClick = Ext.Function.createInterceptor(column.onTitleElClick, function (e, t, sortOnClick) {
@@ -42,18 +42,25 @@ Ext.define('Ext.ux.grid.column.MultiHeader', {
     if (!column.renderer || column.usingDefaultRenderer) {
       column.renderer = function (value, metadata, record, rowIndex, colIndex, store, view) {
         var i, currentValue, ret = '', header, count = me.headers.length;
+        if (me.isEmpty && me.isEmpty(record, rowIndex, colIndex, store, view)) {
+          return '';
+        }
         if (count > 1) {
           metadata.tdCls = 'multi-value-grid-cell'
+        }
+        if (me.columnMetadataCustomizer) {
+          me.columnMetadataCustomizer(metadata, record, rowIndex, colIndex, store, view);
         }
         for (i = 0; i < count; i++) {
           header = me.headers[i];
           currentValue = record.get(header.dataIndex);
-          if (currentValue === undefined || currentValue === null || currentValue === '') {
-            currentValue = emptyMarker;
-          } else if (header.renderer) {
+          if (header.renderer) {
             currentValue = header.renderer.call(column, currentValue, metadata, record, rowIndex, colIndex, store, view);
           } else if (column.defaultRenderer && column.defaultRenderer.call) {
             currentValue = column.defaultRenderer.call(column, currentValue);
+          }
+          if (currentValue === undefined || currentValue === null || currentValue === '') {
+            currentValue = emptyMarker;
           }
           // ret = ret + '<div class="multiline-grid-cell' + (i === 0 ? '-first' : i === count - 1 ? '-last' : '') + '">' + currentValue + '</div>'
           if (i > 0) {
@@ -89,6 +96,11 @@ Ext.define('Ext.ux.grid.column.MultiHeader', {
         multipleHeaders: me.headers
       }
     });
+    //need to replace column sortZone with below after 6 to 7 migration
+    column.isSortZone = function(e) {
+      var me = this;
+      return !me.isAtStartEdge(e) && !me.isAtEndEdge(e);
+    };
     //delete me.headers;
   },
 
